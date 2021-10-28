@@ -18,13 +18,13 @@ client.connect(err => {
   const servicesCollection = client.db("roam-tourism").collection("services");
 
   // get all services
-  app.get("/services", async (req, res) => {
+  app.get("/tours", async (req, res) => {
     const result = await servicesCollection.find({}).toArray();
     res.send(result);
   });
 
-  // get single service
-  app.get("/singleService/:id", async (req, res) => {
+  // get single tour
+  app.get("/singleTour/:id", async (req, res) => {
     const result = await servicesCollection.findOne({ _id: objectId(req.params.id) });
     res.send(result);
   });
