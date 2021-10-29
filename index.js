@@ -17,6 +17,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 client.connect(err => {
 
   const toursCollection = client.db("roam-tourism").collection("services");
+  const bookingCollection = client.db("roam-tourism").collection("booking");
   const ordersCollection = client.db("roam-tourism").collection("orders");
 
   // get all tours
@@ -38,26 +39,52 @@ client.connect(err => {
     res.send(result.insertedId);
   });
 
-  //add order in database
-  app.post("/addOrders", async (req, res) => {
-    const result = await ordersCollection.insertOne(req.body)
+  //add booking in database
+  app.post("/addBooking", async (req, res) => {
+    const result = await bookingCollection.insertOne(req.body)
     res.send(result);
     console.log(result);
   });
 
   // get all order by email query
-  app.get("/myOrders/:email", async (req, res) => {
+  app.get("/myBooking/:email", async (req, res) => {
     // console.log(req.params);
-    const result = await ordersCollection.find({ email: req.params.email })
+    const result = await bookingCollection.find({ email: req.params.email })
       .toArray()
     res.send(result);
   });
 
+
+
+
+
+  // add order 
+  app.post("/addOrder", async (req, res) => {
+    console.log(req.body);
+    const result = await ordersCollection.insertOne(req.body)
+    res.json(result);
+    console.log(result);
+  })
+
+  // get order api
+  app.get("/orders", async (req, res) => {
+    const result = await ordersCollection.find({}).toArray()
+    res.send(result);
+  })
+
+
+
+
+
+
+
+
+
+
   // delete products
   app.delete("/deleteTours/:id", async (req, res) => {
     console.log(req.params);
-
-    const result = await ordersCollection.deleteOne({ _id: req.params.id })
+    const result = await bookingCollection.deleteOne({ _id: req.params.id })
     console.log(result);
     res.send(result);
   });
