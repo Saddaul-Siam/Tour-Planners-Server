@@ -46,17 +46,19 @@ client.connect(err => {
     console.log(result);
   });
 
-  // get all order by email query
+  // get booking api 
+  app.get('/bookings', async (req, res) => {
+    const result = await bookingCollection.find({}).toArray();
+    res.send(result);
+  })
+
+  // get all booking by email query
   app.get("/myBooking/:email", async (req, res) => {
     // console.log(req.params);
     const result = await bookingCollection.find({ email: req.params.email })
       .toArray()
     res.send(result);
   });
-
-
-
-
 
   // add order 
   app.post("/addOrder", async (req, res) => {
@@ -72,22 +74,23 @@ client.connect(err => {
     res.send(result);
   })
 
-
-
-
-
-
-
-
-
-
-  // delete products
+  // delete single tours
   app.delete("/deleteTours/:id", async (req, res) => {
     console.log(req.params);
     const result = await bookingCollection.deleteOne({ _id: req.params.id })
     console.log(result);
     res.send(result);
   });
+
+  // delete all tours
+  app.delete("/deleteTours", async (req, res) => {
+    // console.log(req.params);
+    const result = await bookingCollection.deleteMany({})
+    console.log(result);
+    res.send(result);
+  });
+
+
 
 });
 
