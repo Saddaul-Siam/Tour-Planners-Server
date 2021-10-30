@@ -74,10 +74,18 @@ client.connect(err => {
     res.send(result);
   })
 
+  //Get order api by email
+  app.get("/myOrders/:email", async (req, res) => {
+    console.log(req.params);
+    const result = await ordersCollection.find({ email: req.params.email }).toArray();
+    console.log(result);
+    res.send(result);
+  });
+
   // delete single tours
   app.delete("/deleteTours/:id", async (req, res) => {
     console.log(req.params);
-    const result = await bookingCollection.deleteOne({ _id: req.params.id })
+    const result = await ordersCollection.deleteOne({ _id: req.params.id })
     console.log(result);
     res.send(result);
   });
