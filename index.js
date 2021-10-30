@@ -36,7 +36,8 @@ client.connect(err => {
   app.post("/addTours", async (req, res) => {
     console.log(req.body);
     const result = await toursCollection.insertOne(req.body)
-    res.send(result.insertedId);
+    res.json(result);
+    // console.log(result);
   });
 
   //add booking in database
@@ -85,7 +86,7 @@ client.connect(err => {
   // delete single tours
   app.delete("/deleteTours/:id", async (req, res) => {
     console.log(req.params);
-    const result = await ordersCollection.deleteOne({ _id: req.params.id })
+    const result = await bookingCollection.deleteOne({ _id: req.params.id })
     console.log(result);
     res.send(result);
   });
@@ -98,7 +99,13 @@ client.connect(err => {
     res.send(result);
   });
 
-
+  // delete single orders
+  app.delete("/deleteOrders/:id", async (req, res) => {
+    console.log(req.params);
+    const result = await ordersCollection.deleteOne({ _id: ObjectId(req.params.id) })
+    console.log(result);
+    res.send(result);
+  });
 
 });
 
