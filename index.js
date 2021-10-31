@@ -99,13 +99,55 @@ client.connect(err => {
     res.send(result);
   });
 
-  // delete single orders
+  // delete orders
   app.delete("/deleteOrders/:id", async (req, res) => {
     console.log(req.params);
     const result = await ordersCollection.deleteOne({ _id: ObjectId(req.params.id) })
     console.log(result);
     res.send(result);
   });
+
+
+  /* 
+    // update orders status
+    app.get("/order/:id", (req, res) => {
+      // console.log(req.params);
+      ordersCollection.findOne({ _id: ObjectId(req.params.id) })
+        .then((result) => {
+          res.send(result);
+          // console.log(result);
+        })
+    })
+  
+    // app.get("/order/:id", async (req, res) => {
+    //   // console.log(req.params);
+    //   const result = await ordersCollection.find({ _id: ObjectId(req.params.id) }).toArray()
+    //   res.send(result);
+    //   console.log(result);
+    // })
+  
+    // update status
+    app.put("/update/:id", async (req, res) => {
+      const id = req.params.id;
+      const updatedInfo = req.body;
+      console.log(updatedInfo);
+      // const update = order[0].status,
+      const status = ordersCollection.find({ _id: ObjectId(id) }).toArray();
+      console.log(status);
+      // {
+      //   status.map()
+      // }
+      const result = ordersCollection.updateOne({ _id: ObjectId(id) },
+        {
+          $set: {
+            update: updatedInfo.status
+          }
+        }
+      )
+      // console.log(result);
+    })
+   */
+
 
 });
 
