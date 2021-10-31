@@ -16,7 +16,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 client.connect(err => {
 
-  const toursCollection = client.db("roam-tourism").collection("services");
+  const toursCollection = client.db("roam-tourism").collection("tours");
   const bookingCollection = client.db("roam-tourism").collection("booking");
   const ordersCollection = client.db("roam-tourism").collection("orders");
 
