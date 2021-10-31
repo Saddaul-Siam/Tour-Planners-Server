@@ -93,7 +93,7 @@ client.connect(err => {
 
   // delete all tours
   app.delete("/deleteTours", async (req, res) => {
-    // console.log(req.params);
+    console.log(req.params);
     const result = await bookingCollection.deleteMany({})
     console.log(result);
     res.send(result);
