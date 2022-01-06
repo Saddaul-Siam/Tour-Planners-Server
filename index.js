@@ -127,7 +127,7 @@ client.connect((err) => {
         status: status,
       },
     };
-    const result = await orderCollection.updateOne(query, updateDoc);
+    const result = await ordersCollection.updateOne(query, updateDoc);
     res.json(result);
   });
 });
