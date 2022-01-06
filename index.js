@@ -119,9 +119,9 @@ client.connect((err) => {
   // update-order-status
 
   app.put("/orderStatusUpdate", async (req, res) => {
-    const id = req.body.id;
-    const status = req.body.status;
-    const query = { _id: ObjectID(id) };
+    const id = req?.body?.id;
+    const status = req?.body?.status;
+    const query = { _id: ObjectId(id) };
     const updateDoc = {
       $set: {
         status: status,
