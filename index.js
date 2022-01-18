@@ -36,6 +36,13 @@ client.connect((err) => {
     res.send(result);
   });
 
+  // delete single tour
+  app.delete("/deleteSingleTour/:id", async (req, res) => {
+    const result = await toursCollection.deleteOne({
+      _id: ObjectId(req.params.id),
+    });
+    res.json(result);
+  });
   // add tours
   app.post("/addTours", async (req, res) => {
     console.log(req.body);
@@ -86,14 +93,6 @@ client.connect((err) => {
     const result = await ordersCollection
       .find({ email: req.params.email })
       .toArray();
-    console.log(result);
-    res.send(result);
-  });
-
-  // delete single tours
-  app.delete("/deleteTours/:id", async (req, res) => {
-    console.log(req.params);
-    const result = await bookingCollection.deleteOne({ _id: req.params.id });
     console.log(result);
     res.send(result);
   });
